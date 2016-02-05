@@ -1,6 +1,5 @@
 from aloe import world, step, before, after
 from selenium import webdriver
-
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -21,11 +20,15 @@ def compare_tokens(self):
 def user_login(self, user, password):
     '''user (\w+) with password (\w+) is logged in'''
     world.browser.get(URL)
+    #find username field and type the given username
     username_field = world.browser.find_element_by_name('Email')
     username_field.send_keys(user)
+    #same for password
     pass_field = world.browser.find_element_by_name('Password')
     pass_field.send_keys(password)
+    #submit form
     world.browser.find_element_by_id('submit-btn').click()
+    #wait for landing page to load
     try:
         WebDriverWait(world.browser, 30).until(EC.title_contains("Landing Page"))
     except:
